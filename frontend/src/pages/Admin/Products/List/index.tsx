@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
-import ProductCrudCard from 'components/ProductCrudCard';
+import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 
 const List = () => {
   const product = {
