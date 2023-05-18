@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { isAuthenticated, Role } from 'util/auth';
+import { hasAnyRoles, isAuthenticated, Role } from 'util/auth';
 
 type Props = {
   role?: Role[];
@@ -7,7 +7,11 @@ type Props = {
 
 const PrivateRoute = ({ role = [] }: Props) => {
   return isAuthenticated() ? (
-    <Outlet />
+    !hasAnyRoles(role) ? (
+      <Navigate to={{ pathname: '/admin/products' }} />
+    ) : (
+      <Outlet />
+    )
   ) : (
     <Navigate to={{ pathname: '/admin/auth/login' }} />
   );

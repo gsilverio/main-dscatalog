@@ -1,7 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './NavBar';
 import './styles.css';
-import User from './User';
+
+import PrivateRoute from 'components/PrivateRoute';
+import Users from './Users';
+import Products from './Products';
 const Admin = () => {
   return (
     <>
@@ -9,9 +12,11 @@ const Admin = () => {
         <Navbar />
         <div className="admin-content">
           <Routes>
-            <Route path="products" element={<h1>Product CRUD</h1>} />
-            <Route path="categories" element={<h1>Categories CRUD</h1>} />
-            <Route path="users" element={<User />} />
+            <Route path="products/*" element={<Products />} />
+            <Route path="categories/*" element={<h1>Categories CRUD</h1>} />
+            <Route element={<PrivateRoute role={['ROLE_ADMIN']} />}>
+              <Route path="/users" element={<Users />} />
+            </Route>
           </Routes>
         </div>
       </div>

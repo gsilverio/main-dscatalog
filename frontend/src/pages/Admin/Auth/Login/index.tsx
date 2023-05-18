@@ -17,11 +17,8 @@ type FormData = {
 
 const Login = () => {
   const location = useLocation();
-
   const { setAuthContextData } = useContext(AuthContext);
-
   const [hasError, setHasError] = useState(false);
-
   const {
     register,
     handleSubmit,

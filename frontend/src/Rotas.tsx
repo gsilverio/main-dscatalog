@@ -24,12 +24,6 @@ const Rotas = () => (
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/admin/auth" element={<Auth />} />
       </Route>
-      <Route element={<PrivateRoute role={['ROLE_OPERATOR']} />}>
-        <Route
-          path="/admin/users"
-          element={<Navigate to="/admin/products" />}
-        />
-      </Route>
       <Route
         path="/admin/auth/"
         element={<Navigate to="/admin/auth/login" />}
