@@ -1,3 +1,7 @@
+.product-crud-container {
+  max-width: 1200px;
+}
+
 .btn-crud-add {
   height: 50px;
   width: 100%;
