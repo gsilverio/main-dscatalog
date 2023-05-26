@@ -6,11 +6,16 @@ import { SpringPage } from 'types/vendor/spring';
 import { Product } from 'types/product';
 import { AxiosRequestConfig } from 'axios';
 import { requestBackEnd } from 'util/requests';
+import { get } from 'http';
 
 const List = () => {
   const [page, setPage] = useState<SpringPage<Product>>();
 
   useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = () => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: `/products`,
@@ -18,14 +23,13 @@ const List = () => {
         page: 0,
         size: 50,
       },
-
       //NAO TEM DATA PORQUE GET NAO PRECISA DE CORPO
     };
 
     requestBackEnd(config).then((responde) => {
       setPage(responde.data);
     });
-  }, []);
+  };
 
   return (
     <div className="product-crud-container">
@@ -40,7 +44,7 @@ const List = () => {
       <div className="row">
         {page?.content.map((product) => (
           <div className="col-sm-6 col-md-12" key={product.id}>
-            <ProductCrudCard product={product} />
+            <ProductCrudCard product={product} onDelete={() => getProducts()} />
           </div>
         ))}
       </div>
