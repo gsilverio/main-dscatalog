@@ -1,22 +1,20 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import './styles.css';
 import { Product } from 'types/product';
 import { requestBackEnd } from 'util/requests';
 import { AxiosRequestConfig } from 'axios';
 import Select from 'react-select';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Category } from 'types/category';
 
 type UrlParams = {
   productId: string;
 };
 
 const Form = () => {
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
+  const [selectCategories, setSelectCategories] = useState<Category[]>([]);
 
   const { productId } = useParams<UrlParams>();
   const isEditing = productId !== 'create';
@@ -26,7 +24,14 @@ const Form = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm<Product>();
+
+  useEffect(() => {
+    requestBackEnd({ url: '/categories' }).then((response) => {
+      setSelectCategories(response.data.content);
+    });
+  }, []);
 
   useEffect(() => {
     if (isEditing) {
@@ -42,17 +47,10 @@ const Form = () => {
   }, [isEditing, productId, setValue]);
 
   const onSubmit = (formData: Product) => {
-    const data = {
-      ...formData,
-      imgUrl: isEditing
-        ? formData.imgUrl
-        : 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/3-big.jpg',
-      categories: isEditing ? formData.categories : [{ id: 1, name: '' }],
-    };
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : `/products`,
-      data,
+      data: formData,
       withCredentials: true,
       //NAO TEM DATA PORQUE GET NAO PRECISA DE CORPO
     };
@@ -89,11 +87,30 @@ const Form = () => {
               </div>
 
               <div className="product-bottom-30">
-                <Select
-                  options={options}
-                  classNamePrefix="product-crud-select"
-                  isMulti
+                <Controller
+                  name="categories"
+                  rules={{
+                    required: true,
+                  }}
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={selectCategories}
+                      classNamePrefix="product-crud-select"
+                      isMulti
+                      getOptionLabel={(categorie: Category) => categorie.name}
+                      getOptionValue={(categorie: Category) =>
+                        String(categorie.id)
+                      }
+                    />
+                  )}
                 />
+                {errors.categories && (
+                  <div className="invalid-feedback d-block">
+                    Campo Obrigatorio
+                  </div>
+                )}
               </div>
 
               <div className="product-bottom-30">
@@ -112,7 +129,28 @@ const Form = () => {
                   {errors.price?.message}
                 </div>
               </div>
+              <div className="product-bottom-30">
+                <input
+                  {...register('imgUrl', {
+                    required: 'Campo obrigatorio',
+                    pattern: {
+                      value: /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm,
+                      message: 'Deve ser uma url valida',
+                    },
+                  })}
+                  type="text"
+                  className={`form-control base-input ${
+                    errors.imgUrl ? 'is-invalid' : ''
+                  }`}
+                  placeholder="URL da imagem do produto"
+                  name="imgUrl"
+                />
+                <div className="invalid-feedback d-block">
+                  {errors.imgUrl?.message}
+                </div>
+              </div>
             </div>
+
             <div className="col-lg-6">
               <div>
                 <textarea
