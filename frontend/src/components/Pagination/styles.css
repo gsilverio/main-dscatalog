@@ -22,11 +22,16 @@
 .pagination-icon.active {
   background-color: #407bff;
 }
+.pagination-link-active {
+  background-color: #407bff;
+}
 
 .arrow-previous {
+  color: #407bff;
   transform: rotate(-180deg);
 }
 .arrow-next {
+  color: #407bff;
   margin-left: 10px;
 }
 .arrow-inactive {
@@ -34,4 +39,9 @@
 }
 .arrow-active {
   color: #407bff;
+}
+
+.pagination-arrow-container {
+  display: flex;
+  align-items: center;
 }
