@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { Category } from 'types/category';
+import CurrencyInput from 'react-currency-input-field';
 
 type UrlParams = {
   productId: string;
@@ -47,10 +48,14 @@ const Form = () => {
   }, [isEditing, productId, setValue]);
 
   const onSubmit = (formData: Product) => {
+    const data = {
+      ...formData,
+      price: String(formData.price).replace(',', '.'),
+    };
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : `/products`,
-      data: formData,
+      data: data,
       withCredentials: true,
       //NAO TEM DATA PORQUE GET NAO PRECISA DE CORPO
     };
@@ -114,21 +119,27 @@ const Form = () => {
               </div>
 
               <div className="product-bottom-30">
-                <input
-                  {...register('price', {
-                    required: 'Campo obrigatorio',
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.price ? 'is-invalid' : ''
-                  }`}
-                  placeholder="Preço"
+                <Controller
                   name="price"
+                  rules={{ required: 'Campo obrigatorio' }}
+                  control={control}
+                  render={({ field }) => (
+                    <CurrencyInput
+                      placeholder="Preço"
+                      className={`form-control base-input ${
+                        errors.price ? 'is-invalid' : ''
+                      }`}
+                      disableGroupSeparators={true}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    />
+                  )}
                 />
                 <div className="invalid-feedback d-block">
                   {errors.price?.message}
                 </div>
               </div>
+
               <div className="product-bottom-30">
                 <input
                   {...register('imgUrl', {
