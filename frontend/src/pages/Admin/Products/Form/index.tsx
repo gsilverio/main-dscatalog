@@ -6,7 +6,7 @@ import { AxiosRequestConfig } from 'axios';
 import Select from 'react-select';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
+import { toast } from 'react-toastify';
 import { Category } from 'types/category';
 import CurrencyInput from 'react-currency-input-field';
 
@@ -59,9 +59,14 @@ const Form = () => {
       withCredentials: true,
       //NAO TEM DATA PORQUE GET NAO PRECISA DE CORPO
     };
-    requestBackEnd(config).then((response) => {
-      history('/admin/products');
-    });
+    requestBackEnd(config)
+      .then((response) => {
+        toast.info('Producto cadastrado com sucesso');
+        history('/admin/products');
+      })
+      .catch(() => {
+        toast.error('Erro ao cadastrar produto');
+      });
   };
 
   const handleCancel = () => {
