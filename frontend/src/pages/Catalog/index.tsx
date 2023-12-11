@@ -6,7 +6,7 @@ import Pagination from 'components/Pagination';
 import { useState, useEffect } from 'react';
 import { SpringPage } from 'types/vendor/spring';
 import { requestBackEnd } from 'util/requests';
-import axios, { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import CardLoader from './Cardloader';
 
 const Catalog = () => {
