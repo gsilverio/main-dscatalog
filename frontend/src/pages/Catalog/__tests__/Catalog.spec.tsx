@@ -5,11 +5,6 @@ import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { myHistory } from 'util/history';
 import { server } from './fixtures';
 
-const { TextEncoder, TextDecoder } = require('text-encoding');
-// Configurar o TextEncoder e TextDecoder globalmente
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
-
 beforeAll(() => {
   server.listen();
 });

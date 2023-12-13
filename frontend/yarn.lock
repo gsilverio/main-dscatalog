@@ -2782,7 +2782,7 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@testing-library/dom@^9.0.0":
+"@testing-library/dom@>=7", "@testing-library/dom@^9.0.0":
   version "9.3.3"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-9.3.3.tgz#108c23a5b0ef51121c26ae92eb3179416b0434f5"
   integrity sha512-fB0R+fa3AUqbLHWyxXa2kGVtf1Fe1ZZFr0Zp6AIbIAzXb2mKbEXl+PCQNUOaq5lbTab5tfctfXRNsWXxa2f7Aw==
@@ -9091,6 +9091,13 @@ react-scripts@5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-select-event@^5.3.0:
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/react-select-event/-/react-select-event-5.5.1.tgz#d67e04a6a51428b1534b15ecb1b82afbe5edddcb"
+  integrity sha512-goAx28y0+iYrbqZA2FeRTreHHs/ZtSuKxtA+J5jpKT5RHPCbVZJ4MqACfPnWyFXsEec+3dP5bCrNTxIX8oYe9A==
+  dependencies:
+    "@testing-library/dom" ">=7"
 
 react-select@*, react-select@^5.7.3:
   version "5.7.3"

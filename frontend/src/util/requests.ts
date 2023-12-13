@@ -44,7 +44,7 @@ export const requestBackEnd = (config: AxiosRequestConfig) => {
     : {};
   return axios({ ...config, baseURL: BASE_URL, headers });
 };
-
+/*
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {
@@ -71,3 +71,4 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+*/
