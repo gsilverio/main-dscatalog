@@ -3,6 +3,18 @@ import { render, screen, waitFor } from '@testing-library/react';
 import Catalog from '../';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import { myHistory } from 'util/history';
+import { server } from './fixtures';
+
+const { TextEncoder, TextDecoder } = require('text-encoding');
+// Configurar o TextEncoder e TextDecoder globalmente
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
+beforeAll(() => {
+  server.listen();
+});
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 test('should render Catalog with products', async () => {
   render(
