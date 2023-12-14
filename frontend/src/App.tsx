@@ -1,5 +1,4 @@
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from 'components/Navbar';
 import './assets/styles/custom.scss';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
