@@ -1,6 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import { myHistory } from './history';
 import { getAuthData } from './storage';
 
 //REACT_APP_ : variavel do netlify
