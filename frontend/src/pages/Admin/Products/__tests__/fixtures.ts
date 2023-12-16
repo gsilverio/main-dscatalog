@@ -3,47 +3,20 @@ import { data } from 'msw/lib/types/context';
 import { setupServer } from 'msw/node';
 import { BASE_URL } from 'util/requests';
 
-const findCategoriesResponse = {
-  content: [
-    {
-      id: 1,
-      name: 'Livros',
-    },
-    {
-      id: 2,
-      name: 'Eletrônicos',
-    },
-    {
-      id: 3,
-      name: 'Computadores',
-    },
-  ],
-  pageable: {
-    sort: {
-      sorted: false,
-      unsorted: true,
-      empty: true,
-    },
-    offset: 0,
-    pageNumber: 0,
-    pageSize: 20,
-    paged: true,
-    unpaged: false,
+const findCategoriesResponse = [
+  {
+    id: 1,
+    name: 'Livros',
   },
-  totalPages: 1,
-  totalElements: 3,
-  last: true,
-  number: 0,
-  sort: {
-    sorted: false,
-    unsorted: true,
-    empty: true,
+  {
+    id: 2,
+    name: 'Eletrônicos',
   },
-  size: 20,
-  numberOfElements: 3,
-  first: true,
-  empty: false,
-};
+  {
+    id: 3,
+    name: 'Computadores',
+  },
+];
 
 export const productResponse = {
   id: 2,
